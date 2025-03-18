@@ -4,6 +4,7 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 from PIL import Image
 import pandas as pd
+import io
 
 # Load model using a relative path (since it's now on GitHub)
 model = load_model('casting_defect_model.h5')  # No need for the absolute path
@@ -50,5 +51,15 @@ if uploaded_files:
     if st.button("Save Results to CSV"):
         # Convert list of results to DataFrame
         df = pd.DataFrame(results, columns=['Image', 'Prediction', 'Score'])
-        df.to_csv('detection_results.csv', mode='a', header=False, index=False)
+        
+        # Create CSV in memory
+        csv = df.to_csv(index=False)
         st.write(f"Results saved to detection_results.csv")
+        
+        # Provide download link for the CSV
+        st.download_button(
+            label="Download CSV",
+            data=csv,
+            file_name='detection_results.csv',
+            mime='text/csv'
+        )
