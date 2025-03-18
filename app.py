@@ -5,8 +5,8 @@ import numpy as np
 from PIL import Image
 import pandas as pd
 
-# Load model
-model = load_model(r'C:/Users/Admin/app/casting_defect_model.h5')
+# Load model using a relative path (since it's now on GitHub)
+model = load_model('casting_defect_model.h5')  # No need for the absolute path
 
 # Streamlit UI (styling and titles)
 st.set_page_config(page_title="Casting Defect Detection", page_icon="🔍", layout="centered")
